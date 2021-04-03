@@ -1,0 +1,38 @@
+* {padding: 0; margin: 0;  border: 0;}
+html {font-size: 20px; scroll-behavior: smooth;}
+body {font-size: 1rem; color: #1d1a1c; line-height: 1.4; font-family: "Century Gothic"; font-weight: normal; background: aliceblue}
+a {text-decoration: none; color: #1d1a1c;}
+ul, ol {list-style-type: none;}
+p {margin-bottom: 1.4em;}
+br {margin:0 !important;}
+
+
+/* HEADERS */
+h1,h2,h3,h4 {font-weight: bold; margin-bottom: 0.25rem}
+h1 { font-size: 4vw;}
+h2 {font-size: 3.5vw;}
+h3 {font-size: 1.2rem;}
+h4 {font-size: 1.2rem;} 
+
+@media only screen and (min-width: 1000px) {
+    h1 {font-size: 2rem;}
+    h2 {font-size: 1.65rem;}
+}
+
+@media only screen and (min-width: 1300px) {
+    h1 {font-size: 3vw;}
+    h2 {font-size: 2.5vw;}
+} 
+
+@media only screen and (min-width: 2000px) {
+    h1 {font-size: 3rem;}
+    h2 {font-size: 2.4rem;}
+}
+
+main { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;}
+main h1 {text-transform: capitalize;}
+main section {background: #fefefe; max-width: 60rem; width: calc(100% - 2rem); margin: 0 auto; box-shadow: 1px 2px 6px rgba(0,0,0,0.1); height: calc(100% - 2rem); max-height: 45rem;}  
+main section > div {display: flex; align-items: center; justify-content: flex-end; margin: 1rem;}
+main section > div > img {max-height: 10rem; margin-right: 1rem; transition: 500ms ease; filter: brightness(0);}
+main section > div > img.active {filter: brightness(1);}
+main section > div > img#drill {max-height: 7rem;}

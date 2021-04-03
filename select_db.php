@@ -54,5 +54,4 @@ $conn->close();
 
 //print de array in de webpagina
 echo json_encode ($json);
-
 ?>

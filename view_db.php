@@ -2,41 +2,27 @@
 <html>
 <head>
     <title>CloudCase Tool Tracker</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1></h1>
-    <script>
-
-    let knownIds = [];
-    const refreshRate = 1000;
-
-    async function getDataByDbName(name) {
-        const url = `http://192.168.178.24:8888/select_db.php/?db=${name}`
-        const response = await fetch(url);
-        const data = await response.json();
-        return data;
-    }
-
-    function getToolType(obj) {
-        return knownIds.find(entry => entry.id == obj.id).tool_type;
-    }
-
-    let refresh = setInterval(()=> {                 
-        getDataByDbName('ids')
-            .then (data => {
-                knownIds = data;
-            }).then(
-                getDataByDbName('client_2021')
-                    .then(
-                        data => {
-                            const newestEntry = data[data.length - 1];
-                            const toolType = getToolType(newestEntry);
-                            document.querySelector("h1").textContent = toolType;
-                        }
-                    )
-                )
-            }, refreshRate);
-
-        </script>
+    <header>
+    
+    </header>
+    <main>
+    <section>
+        <div class="images">
+            <img id="drill" src="/img/drill.png" alt="Drill illlustration">
+            <img id="english" src="/img/english.png" alt="english wrench illlustration">
+            <img id="hammer" src="/img/hammer.png" alt="hammer illlustration">
+            <img id="pliers" src="/img/pliers.png" alt="pliers illlustration">
+            <img id="saw" src="/img/saw.png" alt="saw illlustration">
+            <img id="wrench" src="/img/wrench.png" alt="wrench illlustration">
+        </div>
+    </section>
+    </main>
+    <footer>
+    
+    </footer>
+   <script src="/script.js"></script>
 </body>
 </html>
