@@ -1,4 +1,3 @@
-
 <?php
 $servername = "localhost";
 $username = "root";
@@ -18,10 +17,15 @@ if ($conn->connect_error) {
 $id_param = $_GET["id"];
 
 //selecteren welke data je wilt hebben van je webserver
-$sql = "SELECT id, tool_type FROM valid_ids";
-$result = $conn->query($sql);
+$sqlGet = "SELECT id, tool_type FROM ids";
+$result = $conn->query($sqlGet);
+
+
+$sqlPost = "INSERT INTO client_2021(id) VALUE($id_param);";
 
 $match = false;
+
+$id_param = str_replace("'","",$id_param);
 
 if ($result->num_rows > 0) {
     // output data of each row
@@ -33,6 +37,11 @@ if ($result->num_rows > 0) {
   }
 if($match) echo "GREEN";
 else echo "RED";
+
+if ($conn->query($sqlPost) === TRUE) {
+  //  enters data into the SQL.
+}
+
 
 $conn->close();
 ?>
