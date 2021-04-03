@@ -14,33 +14,43 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-//selecteren welke data je wilt hebben van je webserver
-$sql = "SELECT time, value FROM client_2021";
+$db_param = $_GET["db"];
+
+
+switch ($db_param) {
+  case "ids":
+    $sql = "SELECT time, id, tool_type FROM $db_param";
+    break;
+  case "client_2021":
+    $sql = "SELECT time, id FROM $db_param";
+    break;
+}
+
 $result = $conn->query($sql);
 
 //een json file aanmaken zodat het voor programma's beter leesbaar is
 $json = array();
-$value = array ();
-$time = array ();
-
 
 
 //als er een resultaat is met meer rijen dan 0 wordt deze data gepakt
 //"fetch_assoc" geeft je getallen in een array met strings
+
+
 if ($result->num_rows > 0) {
-  
   while($row = $result->fetch_assoc()) {
-    //json arrays aanroepen
-    $time[] = $row["time"];
-    $value[] = $row["value"];
+    switch($db_param) {
+      case "ids":
+        $json[] = (object) ["id" => $row["id"], "tool_type" => $row["tool_type"]];
+        break;
+      case "client_2021":
+        $json[] = (object) ["time" => $row["time"], "id" => $row["id"]];
+        break;
+    }
   }
 } else {
   echo "0 results";
 }
-$conn->close();
-
-$json["time"] = $time;
-$json["value"] = $value;
+$conn->close(); 
 
 //print de array in de webpagina
 echo json_encode ($json);
