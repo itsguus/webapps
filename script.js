@@ -1,4 +1,5 @@
 let knownIds = [];
+let newestEntry; 
 const refreshRate = 1000;
 
 async function getDataByDbName(name) {
@@ -25,10 +26,34 @@ function getTime(obj) {
     hh = timeStr.substr(11,2),
     MM = timeStr.substr(14,2),
     ss = timeStr.substr(17,2);
-    return new Date(`${yyyy}-${mm}-${dd}T${parseInt(hh) - 2}:${MM}:${ss}Z`);
+    var newDate =  Date.parse(`${yyyy}-${mm}-${dd}T${hh}:${MM}:${ss}`);
+    return new Date(newDate);
 }
 
+function fakeCarTrigger(el) {
+    // If everything is accounted for, stop otherwise run the function.
+    if(document.querySelector("#hammer").classList.contains('active')) {
+        el.parentNode.querySelector("p:last-of-type").classList.add("active");
+        setTimeout(() => {
+            el.parentNode.querySelector("p:last-of-type").classList.remove("active");
+        }, 4000);
+        return;
+    } 
+    else {
+        const toolText = el.parentNode.querySelector("span.tool"),
+        idText = el.parentNode.querySelector("span.id"),
+              toolType = getToolType(newestEntry);
+        console.log(newestEntry);
+        toolText.textContent = toolType;
+        idText.textContent = newestEntry.id;
 
+        // Class makes the popup appear.
+        el.parentNode.querySelector("p").classList.add("active");
+        setTimeout(() => {
+            el.parentNode.querySelector("p").classList.remove("active");
+        }, 4000);
+    }
+}
 
 let refresh = setInterval(()=> {                 
     getDataByDbName('ids')
@@ -38,15 +63,15 @@ let refresh = setInterval(()=> {
             getDataByDbName('client_2021')
                 .then(
                     data => {
-                        const  newestEntry = data[data.length - 1],
-                               dataTime = getTime(newestEntry),
+                        newestEntry = data[data.length - 1];
+                        const  dataTime = getTime(newestEntry),
                                toolType = getToolType(newestEntry);
                         let images = document.querySelectorAll(".images img");
                         for(var img of images) {
                             img.classList.remove("active");
                         }
                         if(isntASecondAgo(dataTime, new Date()))
-                        document.getElementById(toolType).classList.add("active");
+                            document.getElementById(toolType).classList.add("active");
                     }
                 )
             )

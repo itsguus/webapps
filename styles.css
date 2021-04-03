@@ -29,10 +29,21 @@ h4 {font-size: 1.2rem;}
     h2 {font-size: 2.4rem;}
 }
 
+header .trigger {position: fixed; bottom: 2rem; right: 1rem;}
+header .trigger p {box-shadow: 2px 2px 4px rgba(0,0,0,0.2); background: #3D89BF; position: absolute; right: 0; top: 0; font-size: 0.7rem; width: 7rem; border-radius: 0.5rem; color: #FFF; padding: 0.5rem; transition: 500ms ease;  opacity: 0; pointer-events: none; }
+header .trigger p::after {content: ""; display: block; position: absolute; position: absolute; right: 20%; bottom: 0; width: 0rem; height: 0rem; border-left: 0.5rem solid transparent; border-right: 0.5rem solid transparent;  border-top: 0.5rem solid #3D89BF; bottom: -0.5rem;}
+header .trigger p.active {transform: translateY(-7rem); opacity: 1;}
+header .trigger p:last-of-type.active {transform: translateY(-4rem); opacity: 1;}
+header button { width: 4.5rem; height: 4.5rem; background: #3D89BF; border-radius: 50%; font-weight: 600; font-size: 0.6rem; color: #FFF; box-shadow: 2px 2px 4px rgba(0,0,0,0.3); cursor: pointer; transition: 500ms ease; z-index: 2; position: relative;}
+header button:hover {box-shadow: 0px 0px 4px rgba(0,0,0,0.2); background: #4699d4}
+
 main { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;}
-main h1 {text-transform: capitalize;}
+main h1 {text-transform: capitalize; display: inline-block; margin: 1.5rem 2rem;}
+main h1 span {color: #3D89BF}
 main section {background: #fefefe; max-width: 60rem; width: calc(100% - 2rem); margin: 0 auto; box-shadow: 1px 2px 6px rgba(0,0,0,0.1); height: calc(100% - 2rem); max-height: 45rem;}  
-main section > div {display: flex; align-items: center; justify-content: flex-end; margin: 1rem;}
+main section > div {display: flex; align-items: center; justify-content: flex-end; margin: -2rem 1rem 1rem 1rem; flex-wrap: wrap;}
+main section > div h2 {width: 100%; text-align: right; margin-right: 1rem; margin-bottom: 1rem;}
 main section > div > img {max-height: 10rem; margin-right: 1rem; transition: 500ms ease; filter: brightness(0);}
-main section > div > img.active {filter: brightness(1);}
+main section > div > img.active,
+main section > div > img.fake__active {filter: brightness(1);}
 main section > div > img#drill {max-height: 7rem;}
