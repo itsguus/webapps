@@ -1,22 +1,29 @@
 <?php
+// AUTHOR GUUS GROENINK
+// guus@monkeyhead.nl
+
+
+
+// Set server and database names
 $servername = "localhost";
 $username = "root";
 $password = "root";
 $dbname = "Cloudcase";
 
-// Connectie maken
-//$conn = internet connectie naar database
+// Create connection to the SQL database.
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
-// Als er een connectie is gemaakt wordt er niks laten zien, als er geen connectie wordt gemaakt komt er een weergave met connection failed in de web browser
+// Make a 'connection failed' error popup if we can't connect.
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
+// Get the /?='db' parameter from the URL. This is the datbase that is .
 $db_param = $_GET["db"];
 
 
+// Since the values are different per database multiple cases are to be made.
 switch ($db_param) {
   case "ids":
     $sql = "SELECT time, id, tool_type FROM $db_param";
@@ -26,15 +33,25 @@ switch ($db_param) {
     break;
 }
 
+// Put the result from the GET into a variable.
 $result = $conn->query($sql);
 
-//een json file aanmaken zodat het voor programma's beter leesbaar is
+// Make an empty array named $json. We're going to stuff all our data into this.
 $json = array();
 
 
 //als er een resultaat is met meer rijen dan 0 wordt deze data gepakt
 //"fetch_assoc" geeft je getallen in een array met strings
 
+// Retrieve the results from the SQL to build the $json file. We're turning it
+// into an Object. With the following format, for case "ids" the Json wil look like this:
+// [
+//    Object {
+//       id: "12345678",
+//       tool_type: "hammer"
+//    },
+//    etc.
+// ]
 
 if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
@@ -52,6 +69,6 @@ if ($result->num_rows > 0) {
 }
 $conn->close(); 
 
-//print de array in de webpagina
+// Print the array into the page so it can be retrieved by accessing this .php file.
 echo json_encode ($json);
 ?>

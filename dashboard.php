@@ -1,3 +1,6 @@
+<!-- AUTHOR GUUS GROENINK
+    guus@monkeyhead.nl -->
+
 <!DOCTYPE html>
 <html>
 <head>

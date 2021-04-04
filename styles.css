@@ -29,7 +29,7 @@ h4 {font-size: 1.2rem;}
     h2 {font-size: 2.4rem;}
 }
 
-header .trigger {position: fixed; bottom: 2rem; right: 1rem;}
+header .trigger {position: fixed; bottom: 2rem; right: 1rem; z-index: 5;`}
 header .trigger p {box-shadow: 2px 2px 4px rgba(0,0,0,0.2); background: #3D89BF; position: absolute; right: 0; top: 0; font-size: 0.7rem; width: 7rem; border-radius: 0.5rem; color: #FFF; padding: 0.5rem; transition: 500ms ease;  opacity: 0; pointer-events: none; }
 header .trigger p::after {content: ""; display: block; position: absolute; position: absolute; right: 20%; bottom: 0; width: 0rem; height: 0rem; border-left: 0.5rem solid transparent; border-right: 0.5rem solid transparent;  border-top: 0.5rem solid #3D89BF; bottom: -0.5rem;}
 header .trigger p.active {transform: translateY(-7rem); opacity: 1;}
