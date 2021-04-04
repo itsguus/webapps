@@ -26,8 +26,13 @@ function isntASecondAgo(dataTime, now) {
     return true;
 }
 
+function kelvinToCelsius(temp) {
+    return (temp-272.15).toFixed(1);
+}
+
 function insertEntryIntoList(obj, toolType) {
     const list = document.querySelector(".log ul");
+    if(list.classList.contains("empty")) list.classList.remove("empty");
     var node = document.createElement("li");
     node.innerHTML = `<p>${obj.time} | ${toolType} | id: ${obj.id}</p>`
     list.insertBefore(node,list.querySelector("li:first-of-type"));
@@ -38,6 +43,7 @@ function logError(obj) {
     if(errorsLogged.includes(obj.time)) return;
     else {
         const list = document.querySelector(".errors ul");
+        if(list.classList.contains("empty")) list.classList.remove("empty");
         var node = document.createElement("li");
         node.innerHTML = `<p>${obj.time} | Unknown tag scanned [id: ${obj.id}]</p>`
         list.insertBefore(node,list.querySelector("li:first-of-type"));
@@ -115,17 +121,25 @@ getData(ipUrl)
         const requestUrl = `https://ipapi.co/${ipObj.ip}/json/`;
         getData(requestUrl)
             .then(data => {
-                let region = data.region,
-                    coords = {
+                let coords = {
                     long: data.longitude,
                     lat: data.latitude
                 };
-                const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&appid=03808207ced7cd2226d5347db519ff9e`;
+                const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.long}&appid=03808207ced7cd2226d5347db519ff9e`;
                 getData(weatherUrl)
-                    .then(weatherData => {
-                        console.log(weatherData);
-                        let weather = weatherData.weather.description;
-                        console.log(weather);
+                .then(weatherData => {
+                    let weatherIcon = weatherData.weather[0].icon,
+                    weatherDescription = weatherData.weather[0].description,
+                    weatherIconUrl = `http://openweathermap.org/img/wn/${weatherIcon}@4x.png`,
+                    weatherTemp = kelvinToCelsius(weatherData.main.temp);
+                    weatherDOM = document.querySelector(".weather");
+                    console.log(weatherTemp);
+
+                    weatherDOM.querySelector("img").src=weatherIconUrl; 
+                    weatherDOM.querySelector("p:nth-of-type(1) span").textContent=weatherData.name; 
+                    weatherDOM.querySelector("p:nth-of-type(2) span").textContent=weatherTemp;
+                    weatherDOM.querySelector("p:last-of-type").textContent=weatherDescription; 
+                    weatherDOM.querySelector("p:last-of-type").textContent=weatherDescription; 
                     });
             });
     });

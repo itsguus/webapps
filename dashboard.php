@@ -27,18 +27,22 @@
         <div class="bottom">
             <article class="log">
                 <h3>Tracking log</h3>
-                <ul>
+                <ul class="empty">
                     <li></li>
                 </ul>
             </article>
             <article class="errors">
                 <h3>Errors</h3>
-                <ul></ul>
+                <ul class="empty"></ul>
             </article>
-            <article class="money">
+            <article class="weather">
                 <h3>Weather</h3>
-                <p>You're in <span class="region"></span></p>
-                <p>The weather will be <span class="description"></span></p>
+                <div>
+                    <p>You're in <span class="region"></span></p>
+                    <p><span class="temp"></span>&deg;C</p>
+                    <img src="" alt="">
+                    <p></p>
+                </div>
             </article>
         </div>
     </section>
