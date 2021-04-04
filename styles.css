@@ -40,10 +40,24 @@ header button:hover {box-shadow: 0px 0px 4px rgba(0,0,0,0.2); background: #4699d
 main { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;}
 main h1 {text-transform: capitalize; display: inline-block; margin: 1.5rem 2rem;}
 main h1 span {color: #3D89BF}
-main section {background: #fefefe; max-width: 60rem; width: calc(100% - 2rem); margin: 0 auto; box-shadow: 1px 2px 6px rgba(0,0,0,0.1); height: calc(100% - 2rem); max-height: 45rem;}  
-main section > div {display: flex; align-items: center; justify-content: flex-end; margin: -2rem 1rem 1rem 1rem; flex-wrap: wrap;}
-main section > div h2 {width: 100%; text-align: right; margin-right: 1rem; margin-bottom: 1rem;}
-main section > div > img {max-height: 10rem; margin-right: 1rem; transition: 500ms ease; filter: brightness(0);}
+main section {background: #fefefe; max-width: 60rem; width: calc(100% - 2rem); margin: 0 auto; box-shadow: 1px 2px 6px rgba(0,0,0,0.1); height: calc(100% - 2rem); max-height: 45rem; display: flex; flex-direction: column;} 
+main section > div {display: flex; align-items: center; justify-content: flex-end; margin: 0 1rem 1rem 1rem; flex-wrap: wrap;}
+main section > div > h2 {width: 100%; text-align: right; margin-right: 1rem; margin-bottom: 2rem;}
+main section > div > img {max-height: 11rem; margin-right: 4.5rem; transition: 500ms ease; filter: brightness(0);}
 main section > div > img.active,
 main section > div > img.fake__active {filter: brightness(1);}
 main section > div > img#drill {max-height: 7rem;}
+main section > div.bottom { margin-top: auto; margin-left: -1rem;}
+main section > div.bottom article {width: calc(33.3% - 2rem); margin-right: 1rem;}
+main section > div.bottom article h3 {margin-left: 0.2rem;}
+main section  .bottom .log ul {height: 12rem; background:#eee; border-radius: 0.5rem; overflow: scroll;   scrollbar-width: none; }
+main section  .bottom .log ul li p {font-size: 0.65rem; margin-bottom: 0.5rem;  position: relative; margin-left: 0.5rem;}
+main section  .bottom .log ul li p:first-of-type {margin-top: 0.5rem;}
+main section  .bottom .log ul li p::after {content: ""; display: block; width: 95%;  border-bottom: 1px solid #ddd; padding-bottom: 0.5rem;}
+
+main section  .bottom .errors ul {height: 8rem; background:#eee; border-radius: 0.5rem; overflow: scroll;   scrollbar-width: none;  margin-bottom: 4rem;}
+main section  .bottom .errors ul li p {font-size: 0.55rem; margin-bottom: 0.5rem;  position: relative; margin-left: 0.5rem; color: maroon;}
+main section  .bottom .errors ul li p:first-of-type {margin-top: 0.5rem;}
+main section  .bottom .errors ul li p::after {content: ""; display: block; width: 95%;  border-bottom: 1px solid #ddd; padding-bottom: 0.5rem;}
+
+main section  .bottom .errors ul {height: 8rem; background:#eee; border-radius: 0.5rem; overflow: scroll;   scrollbar-width: none;  margin-bottom: 4rem;}

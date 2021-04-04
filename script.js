@@ -1,5 +1,6 @@
 let knownIds = [];
 let newestEntry; 
+let errorsLogged = [];
 const refreshRate = 1000;
 
 async function getDataByDbName(name) {
@@ -9,7 +10,14 @@ async function getDataByDbName(name) {
     return data;
 }
 
+async function getData(url) {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+}
+
 function getToolType(obj) {
+    if(knownIds.find(entry => entry.id == obj.id) == undefined) return null;
     return knownIds.find(entry => entry.id == obj.id).tool_type;
 }
 
@@ -17,6 +25,27 @@ function isntASecondAgo(dataTime, now) {
     if((now - dataTime) > 2000 ) return false;
     return true;
 }
+
+function insertEntryIntoList(obj, toolType) {
+    const list = document.querySelector(".log ul");
+    var node = document.createElement("li");
+    node.innerHTML = `<p>${obj.time} | ${toolType} | id: ${obj.id}</p>`
+    list.insertBefore(node,list.querySelector("li:first-of-type"));
+}
+
+
+function logError(obj) {
+    if(errorsLogged.includes(obj.time)) return;
+    else {
+        const list = document.querySelector(".errors ul");
+        var node = document.createElement("li");
+        node.innerHTML = `<p>${obj.time} | Unknown tag scanned [id: ${obj.id}]</p>`
+        list.insertBefore(node,list.querySelector("li:first-of-type"));
+        errorsLogged.push(obj.time);
+    }
+}
+
+
 
 function getTime(obj) {
     var timeStr = obj.time,
@@ -43,10 +72,8 @@ function fakeCarTrigger(el) {
         const toolText = el.parentNode.querySelector("span.tool"),
         idText = el.parentNode.querySelector("span.id"),
               toolType = getToolType(newestEntry);
-        console.log(newestEntry);
-        toolText.textContent = toolType;
+        toolText.textContent = "hammer";
         idText.textContent = newestEntry.id;
-
         // Class makes the popup appear.
         el.parentNode.querySelector("p").classList.add("active");
         setTimeout(() => {
@@ -70,9 +97,38 @@ let refresh = setInterval(()=> {
                         for(var img of images) {
                             img.classList.remove("active");
                         }
-                        if(isntASecondAgo(dataTime, new Date()))
+
+                        if(!toolType) logError(newestEntry);
+                        else if(isntASecondAgo(dataTime, new Date())) {
                             document.getElementById(toolType).classList.add("active");
+                            insertEntryIntoList(newestEntry, toolType);
+                        }
                     }
                 )
             )
         }, refreshRate);
+
+
+const ipUrl = 'https://api.ipify.org?format=json';
+getData(ipUrl)
+    .then(ipObj => {
+        const requestUrl = `https://ipapi.co/${ipObj.ip}/json/`;
+        getData(requestUrl)
+            .then(data => {
+                let region = data.region,
+                    coords = {
+                    long: data.longitude,
+                    lat: data.latitude
+                };
+                const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&appid=03808207ced7cd2226d5347db519ff9e`;
+                getData(weatherUrl)
+                    .then(weatherData => {
+                        console.log(weatherData);
+                        let weather = weatherData.weather.description;
+                        console.log(weather);
+                    });
+            });
+    });
+
+
+    
