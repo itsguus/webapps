@@ -20,8 +20,3 @@ This is the code that is used for the my individual project during the Internet 
 1. Put the device in the correct places in the designated tool locations. 
 2. Tag every tool with an NFC tag in a corresponding place. Scan the ID of this NFC tag and add it to the "ids" database. Make sure to enter the "tool_type" with the name of the piece of equipment. 
 3. Run [this PHP code](https://github.com/itsguus/webapps) on a server. Make sure to change the IP addresses used in the code to correspond with your server.
-
-# Wiring
-
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f80515fc-5cfb-4518-a23a-a58fa58c533b/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f80515fc-5cfb-4518-a23a-a58fa58c533b/Untitled.png)
-
